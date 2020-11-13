@@ -1,0 +1,62 @@
+<h1>Welcome#home</h1>
+<%# if a user doesnt exsist %>
+<% if !current_user %>
+  <h3>If you are a new user</h3>
+  <%= link_to 'sign_up' , new_user_registration_path %>
+  </br>
+  <%= link_to 'log_in' , new_user_session_path %>
+  </br>
+<%# if user exists %>
+<% else %>
+  <%#also check it for the amdin%>
+  <% if current_user.role === "reader" %>
+    <%= link_to 'Timeline' , posts_path %>
+    <h1> Total number of posts : <%= @authors.count %> </h1>
+    <%#we will need to have cards here woth subscribe button%>
+    <% @authors.each do |a| %>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <% boolfound = false %>
+          <h5 class="card-title"><%= a.first_name %>  </h5>
+          
+          <% @subscribed_authors.each do |b|%>
+            <%#all those who have already been subscribed%>
+            <% if a == b %>
+              <%#this is going to be a button, try to change this button without loading new page%>
+              <%#= a.first_name %>
+              <% boolfound = true %>
+            <% else %>
+              <%#this is going to be a button%>
+              <%#= a.first_name %>
+            <% end %>
+          <% end %>
+          <% if boolfound == true %>
+            <%#this is going to be a button%>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+              <%= link_to 'Unfollow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "unfollow") %>
+            </button>
+            <%#= link_to 'Unfollow Author:' ,class= 'btn btn-primary' , posts_path %>
+          <% else %>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+              <%= link_to 'follow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "follow") %>
+            </button>
+            <%#= link_to 'Follow Author: ' , posts_path %>
+          <% end%>
+        </div>
+      </div>  
+      </br>
+    <% end %>
+  <% end %>
+  <% if current_user.role === "author" %>
+    <%= link_to 'All my posts' , posts_path %>
+  <% end %>
+<% end %>
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
