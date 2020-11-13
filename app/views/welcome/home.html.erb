@@ -8,7 +8,7 @@
 <%# if user exists %>
 <% else %>
   <%#also check it for the amdin%>
-  <% if current_user.role === "reader" %>
+  <% if current_user.role != "author" %>
     <%#this link will be in the navbar%>
     <%= link_to 'Timeline' , posts_path %>
     <h3> Total number of posts : <%= @authors.count %> </h3>
@@ -43,7 +43,7 @@
       </br>
     <% end %>
   <% end %>
-  <% if current_user.role === "author" %>
+  <% if current_user.role != "reader" %>
     <%= link_to 'All my posts' , posts_path %>
   <% end %>
 <% end %>

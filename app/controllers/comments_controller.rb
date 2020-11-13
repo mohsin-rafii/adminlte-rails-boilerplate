@@ -27,11 +27,14 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
+    #deburger
     @comment = Comment.new(comment_params)
     @comment.post_id = params[:pid]
     @comment.user_id = current_user.id
+    #deburger
     respond_to do |format|
       if @comment.save
+        #deburger
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
@@ -39,6 +42,7 @@ class CommentsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+    #deburger
   end
 
   # PATCH/PUT /comments/1
