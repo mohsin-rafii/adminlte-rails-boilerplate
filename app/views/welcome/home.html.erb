@@ -1,5 +1,4 @@
 <%# if a user doesnt exsist %>
-123
 <% if !current_user %>
   <h4>If you are a new user:</h4>
   <%= link_to 'sign_up' , new_user_registration_path %>
@@ -11,7 +10,7 @@
   <%#also check it for the amdin%>
   <% if current_user.role != "author" %>
     <%#this link will be in the navbar%>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="btn btn-primary">
       <%= link_to 'Timeline' , posts_path %>
     </button>
     <h3> This is the list of all Authors : <%= @authors.count %> </h3>
@@ -21,7 +20,6 @@
         <div class="card-body">
           <% boolfound = false %>
           <h5 class="card-title"><%= a.first_name %>  </h5>
-          
           <% @subscribed_authors.each do |b|%>
             <%#all those who have already been subscribed%>
             <% if a == b %>
@@ -31,12 +29,12 @@
           <% end %>
           <% if boolfound == true %>
             <%#this is going to be a button%>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-warning">
               <%= link_to 'Unfollow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "unfollow") %>
             </button>
             <%#= link_to 'Unfollow Author:' ,class= 'btn btn-primary' , posts_path %>
           <% else %>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-success">
               <%= link_to 'follow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "follow") %>
             </button>
             <%#= link_to 'Follow Author: ' , posts_path %>
@@ -47,7 +45,7 @@
     <% end %>
   <% end %>
   <% if current_user.role != "reader" %>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="btn btn-primary"">
       <%= link_to 'All my posts' , posts_path %>
     </button>
   <% end %>
