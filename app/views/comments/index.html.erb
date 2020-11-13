@@ -29,5 +29,7 @@
 </table>
 
 <br>
-
-<%= link_to 'New Comment', new_comment_path(:pid => params[:pid]) %>
+<% if current_user.role != "author" %>
+  <%= link_to 'New Comment', new_comment_path(:pid => params[:pid]) %>
+<% end %>
+<%= link_to 'Back', root_path %>
