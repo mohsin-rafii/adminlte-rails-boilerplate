@@ -14,10 +14,22 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= link_to 'Show', post %></td>
+        <td>
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'Show', post %>
+          </button>  
+        </td>
         <% if current_user.role != "reader"%>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <button type="button" class="btn btn-outline-info">
+              <%= link_to 'Edit', edit_post_path(post) %>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-info">
+              <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </button>
+          </td>
         <% end %>
       </tr>
     <% end %>
@@ -27,6 +39,10 @@
 <br>
 
 <% if current_user.role != "reader" %>
-  <%= link_to 'New Post', new_post_path %>
+  <button type="button" class="btn btn-primary">
+    <%= link_to 'New Post', new_post_path %>
+  </button>
 <% end %>
-<%= link_to 'Back', root_path %>
+<button type="button" class="btn btn-primary">
+  <%= link_to 'Back', root_path %>
+</button>

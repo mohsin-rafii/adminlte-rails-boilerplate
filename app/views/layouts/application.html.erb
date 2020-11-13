@@ -10,13 +10,13 @@
   </head>
 
   <body>
+  <%= render 'layouts/alerts' %>
     <% if current_user %>
       <%#this will be a link in the navbar%>
       <%= link_to 'logout', destroy_user_session_path, method: :delete %>
       <p>User id: <%= current_user.id %> <p>
       <p>User role: <%= current_user.role %> <p>
     <% end %>
-    <%= render 'layouts/alerts' %>
     <%= yield %>
   </body>
 </html>

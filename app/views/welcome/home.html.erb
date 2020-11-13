@@ -1,6 +1,7 @@
 <%# if a user doesnt exsist %>
+123
 <% if !current_user %>
-  <h3>If you are a new user</h3>
+  <h4>If you are a new user:</h4>
   <%= link_to 'sign_up' , new_user_registration_path %>
   </br>
   <%= link_to 'log_in' , new_user_session_path %>
@@ -10,8 +11,10 @@
   <%#also check it for the amdin%>
   <% if current_user.role != "author" %>
     <%#this link will be in the navbar%>
-    <%= link_to 'Timeline' , posts_path %>
-    <h3> Total number of posts : <%= @authors.count %> </h3>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      <%= link_to 'Timeline' , posts_path %>
+    </button>
+    <h3> This is the list of all Authors : <%= @authors.count %> </h3>
     <%#we will need to have cards here woth subscribe button%>
     <% @authors.each do |a| %>
       <div class="card" style="width: 18rem;">
@@ -44,6 +47,8 @@
     <% end %>
   <% end %>
   <% if current_user.role != "reader" %>
-    <%= link_to 'All my posts' , posts_path %>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      <%= link_to 'All my posts' , posts_path %>
+    </button>
   <% end %>
 <% end %>
