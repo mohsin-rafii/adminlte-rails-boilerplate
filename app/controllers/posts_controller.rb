@@ -5,15 +5,13 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     #if user is a author then show him all his posts.
-    if current_user.role == "author"
+    if current_user.role != "reader"
       @posts = Post.where(user_id: current_user.id )
-    end
     #if user is an reader then show him all this posts of authors that he is subscribed to.
-    if current_user.role == "reader"
+    else
       user = User.where(id: current_user.id)
       @subscribed_authors = user.first.subscribers
       #to save relevant posts form all the subscribers
-      #@relevant_posts = @subscribed_authors[1].posts
       @posts = Post.where(user_id: @subscribed_authors.ids)
     end
     #deburger
@@ -38,10 +36,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    #deburger
     respond_to do |format|
       if @post.save
-        #deburger
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else

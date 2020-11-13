@@ -22,12 +22,8 @@
           <% @subscribed_authors.each do |b|%>
             <%#all those who have already been subscribed%>
             <% if a == b %>
-              <%#this is going to be a button, try to change this button without loading new page%>
-              <%#= a.first_name %>
+              <%#this variable will see if this author is subscribed or not%>
               <% boolfound = true %>
-            <% else %>
-              <%#this is going to be a button%>
-              <%#= a.first_name %>
             <% end %>
           <% end %>
           <% if boolfound == true %>
@@ -51,12 +47,3 @@
     <%= link_to 'All my posts' , posts_path %>
   <% end %>
 <% end %>
-
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>

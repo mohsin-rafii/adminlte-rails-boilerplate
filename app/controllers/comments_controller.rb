@@ -7,9 +7,7 @@ class CommentsController < ApplicationController
     post = Post.find(params[:pid])
     if Comment.count != 0
       @comments = Comment.where(post_id: post.id)
-      #something
     end
-    #deburger
   end
 
   # GET /comments/1
@@ -30,10 +28,8 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-    #here
     @comment.post_id = params[:pid]
     @comment.user_id = current_user.id
-    #deburger
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
