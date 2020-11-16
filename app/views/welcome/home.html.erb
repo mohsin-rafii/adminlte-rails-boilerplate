@@ -15,29 +15,26 @@
     </button>
     <h3> This is the list of all Authors : <%= @authors.count %> </h3>
     <%#we will need to have cards here woth subscribe button%>
-    <% @authors.each do |a| %>
+    <% @authors.each do |author| %>
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <% boolfound = false %>
-          <h5 class="card-title"><%= a.first_name %>  </h5>
-          <% @subscribed_authors.each do |b|%>
-            <%#all those who have already been subscribed%>
-            <% if a == b %>
+          <% is_subscribed = false %>
+          <h5 class="card-title"><%= author.first_name %>  </h5>
+          <% @subscribed_authors.each do |sub_author|%>
+            <%#all those who have already been subscribed by this reader%>
+            <% if author == sub_author %>
               <%#this variable will see if this author is subscribed or not%>
-              <% boolfound = true %>
+              <% is_subscribed = true %>
             <% end %>
           <% end %>
-          <% if boolfound == true %>
-            <%#this is going to be a button%>
+          <% if is_subscribed == true %>
             <button type="button" class="btn btn-warning">
-              <%= link_to 'Unfollow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "unfollow") %>
+              <%= link_to 'Unfollow Author:' , welcome_change_subscribe_status_path(:author_id => author.id , :choice_type => "unfollow") %>
             </button>
-            <%#= link_to 'Unfollow Author:' ,class= 'btn btn-primary' , posts_path %>
           <% else %>
             <button type="button" class="btn btn-success">
-              <%= link_to 'follow Author:' , welcome_change_subscribe_status_path(:author_id => a.id , :choice_type => "follow") %>
+              <%= link_to 'follow Author:' , welcome_change_subscribe_status_path(:author_id => author.id , :choice_type => "follow") %>
             </button>
-            <%#= link_to 'Follow Author: ' , posts_path %>
           <% end%>
         </div>
       </div>  
@@ -46,7 +43,7 @@
   <% end %>
   <% if current_user.role != "reader" %>
     <button type="button" class="btn btn-primary"">
-      <%= link_to 'All my posts' , posts_path %>
+      <%= link_to 'All my posts' , posts_path%>
     </button>
   <% end %>
 <% end %>

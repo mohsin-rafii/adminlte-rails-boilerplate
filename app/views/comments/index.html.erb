@@ -28,8 +28,10 @@
 
 
 <br>
-<% if current_user.role != "author" %>
-  <%= link_to 'New Comment', new_comment_path(:pid => params[:pid]) %>
+<% if current_user.role == "reader" %>
+  <button type="button" class="btn btn-primary btn-sm">
+    <%= link_to 'New Comment', new_comment_path(:pid => params[:pid]) %>
+  </button>
 <% end %>
 <button type="button" class="btn btn-primary btn-sm">
   <%= link_to 'Back', root_path %>

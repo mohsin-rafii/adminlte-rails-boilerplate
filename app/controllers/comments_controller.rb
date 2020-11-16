@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
+  after_action :verify_authorized , except: [:show, :index]
   # GET /comments
   # GET /comments.json
   def index
@@ -18,23 +19,22 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    authorize @comment
   end
 
   # GET /comments/1/edit
   def edit
+    authorize @comment
   end
 
   # POST /comments
   # POST /comments.json
   def create
-    #deburger
     @comment = Comment.new(comment_params)
     @comment.post_id = params[:pid]
     @comment.user_id = current_user.id
-    #deburger
     respond_to do |format|
       if @comment.save
-        #deburger
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
-    #deburger
+    authorize @comment
   end
 
   # PATCH/PUT /comments/1
@@ -57,6 +57,7 @@ class CommentsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+    authorize @comment
   end
 
   # DELETE /comments/1
@@ -64,9 +65,11 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      #currently redirecting to root page beacuse of routes issue
+      format.html { redirect_to root_url , notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
+    authorize @comment
   end
 
   private

@@ -7,7 +7,8 @@
     <thead>
       <tr>
         <th>Title</th>
-        <th colspan="3"></th>
+        <th colspan="1"></th>
+        <th>Body</th>
       </tr>
     </thead>
 
@@ -15,6 +16,8 @@
       <% @posts.each do |post| %>
         <tr>
           <td><%= post.title %></td>
+          <td colspan="1"></td>
+          <td><%= post.body %></td>
           <td>
             <button type="button" class="btn btn-outline-info">
               <%= link_to 'Show', post %>
@@ -37,12 +40,12 @@
     </tbody>
   </table>
 <% else %>
-<h4>Sorry , You dont have any Posts yet</h4>
+  <h4>Sorry , You dont have any Posts yet</h4>
 <% end %>
 
 <br>
 
-<% if current_user.role != "reader" %>
+<% if current_user.role == "author" %>
   <button type="button" class="btn btn-success">
     <%= link_to 'New Post', new_post_path %>
   </button>

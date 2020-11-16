@@ -1,34 +1,42 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  after_action :verify_authorized, except: [:index, :show]
+  #after_action :verify_policy_scoped, only: :index
+
   # GET /posts
   # GET /posts.json
   def index
     #if user is a author then show him all his posts.
-    if current_user.role != "reader"
+    if current_user.role == "author"
       @posts = Post.where(user_id: current_user.id )
-    #if user is an reader then show him all this posts of authors that he is subscribed to.
+    elsif current_user.role == "admin"
+    #uf the user is admin then he can see all the posts
+      @posts = Post.all
     else
+    #if user is an reader then show him all this posts of authors that he is subscribed to.
       user = User.where(id: current_user.id)
       @subscribed_authors = user.first.subscribers
       #to save relevant posts form all the subscribers
       @posts = Post.where(user_id: @subscribed_authors.ids)
     end
-    #deburger
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comments = @post.comments
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    authorize @post
   end
 
   # GET /posts/1/edit
   def edit
+    authorize @post
   end
 
   # POST /posts
@@ -45,6 +53,7 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+    authorize @post
   end
 
   # PATCH/PUT /posts/1
@@ -59,6 +68,7 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+    authorize @post
   end
 
   # DELETE /posts/1
@@ -69,12 +79,14 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+    authorize @post
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+      #authorize @post
     end
 
     # Only allow a list of trusted parameters through.
