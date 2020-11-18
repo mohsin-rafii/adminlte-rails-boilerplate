@@ -42,7 +42,10 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    #deburger
     @post = Post.new(post_params)
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:content]
     @post.user_id = current_user.id
     respond_to do |format|
       if @post.save
@@ -54,6 +57,7 @@ class PostsController < ApplicationController
       end
     end
     authorize @post
+    #here
   end
 
   # PATCH/PUT /posts/1
@@ -91,6 +95,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :user_id, :body)
+      params.require(:post).permit(:title, :user_id, :body, :content)
     end
 end

@@ -3,42 +3,30 @@
 <h1>Posts</h1>
 
 <% if @posts.count != 0 %>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th colspan="1"></th>
-        <th>Body</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.title %></td>
-          <td colspan="1"></td>
-          <td><%= post.body %></td>
-          <td>
-            <button type="button" class="btn btn-outline-info">
-              <%= link_to 'Show', post %>
-            </button>  
-          </td>
-          <% if current_user.role != "reader"%>
-            <td>
-              <button type="button" class="btn btn-outline-info">
-                <%= link_to 'Edit', edit_post_path(post) %>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-outline-info">
-                <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-              </button>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% @posts.each do |post| %>
+    <div class="card" style="width: 25rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= post.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text"><%= post.body %></p>
+        <a class="card-link">
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'Show', post %>
+          </button>
+        </a>
+        <a class="card-link">
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'Edit', edit_post_path(post) %>
+          </button>
+        </a>
+        <a class="card-link">
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </button>
+        </a>
+      </div>
+    </div>
+  <% end %>
 <% else %>
   <h4>Sorry , You dont have any Posts yet</h4>
 <% end %>

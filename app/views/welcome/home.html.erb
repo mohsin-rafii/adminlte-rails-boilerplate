@@ -1,19 +1,19 @@
 <%# if a user doesnt exsist %>
 <% if !current_user %>
-  <h4>If you are a new user:</h4>
-  <%= link_to 'sign_up' , new_user_registration_path %>
-  </br>
-  <%= link_to 'log_in' , new_user_session_path %>
-  </br>
+<%# this template will contain the welcome page for non-current users %>
+  <%= render 'not_current_user' %>
 <%# if user exists %>
 <% else %>
   <%#also check it for the amdin%>
   <% if current_user.role != "author" %>
     <%#this link will be in the navbar%>
+    <!--
     <button type="button" class="btn btn-primary">
-      <%= link_to 'Timeline' , posts_path %>
+      <%#= link_to 'Timeline' , posts_path %>
     </button>
-    <h3> This is the list of all Authors : <%= @authors.count %> </h3>
+    -->
+    <h3> This is the list of all Authors </h3>
+    <h4> Total Authors: <%= @authors.count %> </h4>
     <%#we will need to have cards here woth subscribe button%>
     <% @authors.each do |author| %>
       <div class="card" style="width: 18rem;">
@@ -41,9 +41,11 @@
       </br>
     <% end %>
   <% end %>
-  <% if current_user.role != "reader" %>
+  <!--
+  <%# if current_user.role != "reader" %>
     <button type="button" class="btn btn-primary"">
-      <%= link_to 'All my posts' , posts_path%>
+      <%#= link_to 'All my posts' , posts_path%>
     </button>
-  <% end %>
+  <%# end %>
+  -->
 <% end %>

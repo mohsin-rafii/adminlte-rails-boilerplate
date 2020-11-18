@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TestProject</title>
+    <title>BoilerPlate</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -9,16 +9,25 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <%= render 'layouts/alerts' %>
-    <% if current_user %>
-      <%#this will be a link in the navbar%>
-      <button type="button" class="btn btn-dark btn-sm">
-        <%= link_to 'logout', destroy_user_session_path, method: :delete %>
-      </button>
-      <p>User id: <%= current_user.id %> <p>
-      <p>User role: <%= current_user.role %> <p>
+
+  <body style="margin: 0px">
+    <%#= render 'layouts/alerts' %>
+    <% if current_user != nil%>
+      <%= render partial: "layouts/header" %>
     <% end %>
-    <%= yield %>
+    <div class="row">
+      <% if current_user != nil%>
+        <div class="sidebar-mini col-3" >
+          <div class="wrapper">
+              <%= render partial: "layouts/sidebar" %>
+            <%#= render partial: "layouts/footer" %>
+          </div>
+        </div>
+      <% end %>
+      <div class="content-wrapper col-9">
+        <%= yield %>
+      </div>
+    </div>
   </body>
+
 </html>

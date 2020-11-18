@@ -1,0 +1,29 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<!-- Sidebar -->
+  <div class="slimScrollDiv" style="position: relative; overflow: hidden; height: auto;">
+    <div class="sidebar col-sm" style="min-height: 652px; overflow: hidden; height: 652px;">
+      <!-- Sidebar user panel (optional) -->
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+              with font-awesome or any other icon font library -->
+          <% if current_user.role != "reader" %>  
+            <li class="nav-item text-center">
+              <i class="far fa-circle nav-icon"></i>
+              <%= link_to 'All MY POSTS' , posts_path%>
+            </li>
+          <% end %>
+          <% if current_user.role != "author" %>
+            <li class="nav-item text-center">
+              <i class="far fa-circle nav-icon"></i>
+              <%= link_to 'TIMELINE' , posts_path %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  </div>
+  <!-- /.sidebar -->
+</aside>

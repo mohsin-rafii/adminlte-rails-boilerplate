@@ -62,6 +62,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.5.0)
       msgpack (~> 1.0)
+    bootstrap_form (4.5.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.33.0)
@@ -182,6 +185,8 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    trix (0.10.1)
+      rails
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -214,6 +219,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
+  bootstrap_form (~> 4.0)
   byebug
   capybara (>= 2.15)
   devise
@@ -227,6 +233,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
+  trix
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)

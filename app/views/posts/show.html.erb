@@ -1,21 +1,35 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-  </br>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<%= link_to 'Back', posts_path %> |
-<% if current_user.role != "reader"%>
-  <%= link_to 'Edit', edit_post_path(@post) %> |
-  <% if @comments != 'nil' %>
-    <%= link_to 'Comments', comments_path(:pid => @post.id) %>
-  <% else %>
-    <p>No comments are available</p>
-  <% end %>
-<% else %>
-  <%= link_to 'New Comment', new_comment_path(:pid => @post.id) %>
-<% end %>
+<h2>Post Details: </h2>
+<div class="card" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= @post.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text"><%= @post.body %></p>
+    <a class="card-link">
+      <button type="button" class="btn btn-outline-info">
+        <%= link_to 'Back', posts_path %>
+      </button>
+    </a>
+    <% if current_user.role != "reader"%>
+      <a class="card-link">
+        <button type="button" class="btn btn-outline-info">
+          <%= link_to 'Edit', edit_post_path(@post) %>
+        </button>
+      </a>
+      <a class="card-link">
+        <% if @comments != 'nil' %>
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'Comments', comments_path(:pid => @post.id) %>
+          </button>
+        <% end %>
+      </a>
+    <% end %>
+      <a class="card-link">
+        <% if current_user.role == "reader"%>
+          <button type="button" class="btn btn-outline-info">
+            <%= link_to 'New Comment', new_comment_path(:pid => @post.id) %>
+          </button>
+        <% end %>
+      </a>
+  </div>
+</div>
